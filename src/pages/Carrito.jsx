@@ -51,6 +51,13 @@ const Carrito = () => {
     // Limpiar carrito después de enviar
     clearCart();
   };
+  const isFormValid = () => {
+    return (
+      formData.nombre.trim() !== "" &&
+      formData.direccion.trim() !== "" &&
+      formData.metodoPago.trim() !== ""
+    );
+  };
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-100 p-4">
@@ -138,8 +145,13 @@ const Carrito = () => {
               ></textarea>
 
               <button
-                className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 w-full"
+                className={`bg-green-500 text-white px-4 py-2 rounded-lg w-full ${
+                  isFormValid()
+                    ? "hover:bg-green-600"
+                    : "opacity-50 cursor-not-allowed"
+                }`}
                 onClick={enviarPedido}
+                disabled={!isFormValid()} // Bloquea el botón si el formulario no es válido
               >
                 Confirmar pedido por Whatsapp ✅
               </button>
